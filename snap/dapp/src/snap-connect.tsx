@@ -49,12 +49,7 @@ export default function SnapConnect(props: SnapConnectProps) {
   return (
     <>
       <Stack spacing={2}>
-        <Typography variant="body1" component="div" gutterBottom>
-          To begin you should have installed{" "}
-          <Link href="https://metamask.io/flask/">MetaMask Flask</Link> and then
-          you can connect.
-        </Typography>
-        <Button variant="contained" onClick={onConnect}>
+        <Button variant="contained" color="success" onClick={onConnect}>
           Connect to MetaMask
         </Button>
       </Stack>

@@ -1,0 +1,48 @@
+@startuml
+hide footbox
+actor User_1 as Foo
+actor User_2 as Foo5
+actor User_3 as Foo6
+actor User_4 as Foo7
+
+Participant    Wallet_DApp             as Foo1
+Participant    Metamask                as Foo2
+Participant    MPC_sessions_server     as Foo3
+Participant    Blockchain_network      as Foo4
+
+group User_1 authentication
+Foo -> Foo1   : To authenticate 
+Foo1 -> Foo2  : To unlock metamask and approve connection with DApp
+Foo2 -> Foo4  : To get chainId, balance account,...
+Foo4 --> Foo2 : chain and account datas
+Foo2 --> Foo1 : Authentication succes
+end
+
+group User_1 create an account shares with User_2 and User_3
+Foo -> Foo1   : To create a group with 2 of 3 multi-signatures 
+Foo1 -> Foo3  : To call rpc request GROUP_CREATE
+Foo3 --> Foo1 : return group datas created 
+Foo1 -> Foo1  : To store and generate join session links
+Foo -> Foo5   : To send link by mail or private message
+Foo -> Foo6   : To send link by mail or private message
+Foo5 -> Foo1  : To connect, join session with link received from User_1
+Foo1 -> Foo3  : To call rpc request GROUP_JOIN
+Foo3 --> Foo1 : return group datas created 
+Foo6 -> Foo1  : To connect, join session with link received from User_1
+note right    : All parties joined the group 3/3
+Foo1 -> Foo1  : Generate wallet common private key, compute and distribute the shares for User_1, User_2 and User_3
+Foo -> Foo1   : To save key share
+Foo5 -> Foo1  : To save key share
+Foo6 -> Foo1  : To save key share
+end
+
+group User_2 send a transaction from wallet shares
+Foo5 -> Foo1  : To create transaction proposal; send 0.01 ETH to User_4 and sign transaction
+Foo1 -> Foo1  : To generate links for signing the transaction
+Foo6 -> Foo1  : To sign the transaction
+note right    : The threshold signatures 2/3 is reached
+Foo5 -> Foo1  : To make transaction
+Foo1 -> Foo4  : To send transaction on blockchain
+Foo4 --> Foo1 : Tranaction done  
+end
+@enduml

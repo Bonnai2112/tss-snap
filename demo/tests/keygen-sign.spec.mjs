@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-const TEST_URL = process.env.TEST_URL || "http://localhost:3030";
+const TEST_URL = process.env.TEST_URL || "http://localhost:8080";
 
 function proxyConsoleError(id, page) {
   // Proxy browser console.error()

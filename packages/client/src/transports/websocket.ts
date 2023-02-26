@@ -68,9 +68,9 @@ export class WebSocketSink implements SinkTransport {
   }
 
   take(round: number): Message[] {
-    const values = this.rounds.get(round).slice(0);
+    const values = this.rounds?.get(round)?.slice(0);
     this.rounds.delete(round);
-    return values;
+    return values ?? [];
   }
 
   receiveMessage(message: Message): void {
@@ -95,6 +95,6 @@ export class WebSocketSink implements SinkTransport {
     }
 
     const answers = this.rounds.get(round);
-    answers.push(message);
+    answers?.push(message);
   }
 }

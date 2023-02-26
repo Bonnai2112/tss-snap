@@ -45,7 +45,7 @@ export type Message = {
   round: number;
   sender: number;
   uuid: string;
-  receiver?: number;
+  receiver?: number | null;
   /* eslint-disable @typescript-eslint/no-explicit-any */
   body: any;
 };

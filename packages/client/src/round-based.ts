@@ -2,7 +2,7 @@ import { Message } from '.';
 
 export type Round = {
   name: string;
-  transition: (incoming?: Message[]) => Promise<[number, Message[]]>;
+  transition: (incoming?: Message[] | null) => Promise<[number, Message[]]>;
 };
 
 export type Finalizer<R> = {
@@ -25,7 +25,7 @@ export class RoundBased<R> {
 
   finalizer: Finalizer<R>;
 
-  onTransition: (previousRound: string, current: string) => void;
+  onTransition: (previousRound: string | null, current: string) => void;
 
   currentRound: number;
 
@@ -85,11 +85,11 @@ export class RoundBased<R> {
       throw new Error('Did not get result from round transition');
     }
 
-    return null;
+    return [];
   }
 
   async start(): Promise<R> {
-    let nextMessages: Message[] = null;
+    let nextMessages: Message[] = [];
 
     while (this.currentRound < this.totalRounds) {
       nextMessages = await this.nextRound(nextMessages);

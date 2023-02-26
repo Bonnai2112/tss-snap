@@ -71,7 +71,7 @@ export class WebSocketClient extends EventEmitter {
       // has been established
       while (this.queue.length > 0) {
         const message = this.queue.shift();
-        this.notify(message);
+        this.notify(message as RpcRequest);
       }
 
       this.emit('open');
@@ -87,7 +87,7 @@ export class WebSocketClient extends EventEmitter {
 
       // Got a promise to resolve
       if (msg.id > 0 && this.messageRequests.has(msg.id)) {
-        const { resolve } = this.messageRequests.get(msg.id);
+        const { resolve } = this.messageRequests.get(msg.id) as PromiseCache;
         resolve(msg);
         this.messageRequests.delete(msg.id);
         // Without an `id` we treat as a broadcast message

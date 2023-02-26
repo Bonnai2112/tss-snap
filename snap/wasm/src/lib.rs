@@ -4,6 +4,11 @@ use serde::{Deserialize, Serialize};
 use thiserror::Error;
 use wasm_bindgen::prelude::*;
 
+// bitcoin
+//use curv::elliptic::curves::secp256_k1::Secp256r1;
+// tezos 
+//use curv::elliptic::curves::secp256_k1::Ed25519;
+// ethereum
 use curv::elliptic::curves::secp256_k1::Secp256k1;
 use multi_party_ecdsa::protocols::multi_party_ecdsa::gg_2020::{
     party_i::SignatureRecid, state_machine::keygen::LocalKey,

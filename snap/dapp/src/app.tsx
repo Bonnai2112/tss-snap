@@ -44,14 +44,15 @@ function MainAppBar() {
         <Stack direction="row" alignItems="center">
           <Stack direction="row" padding={1} spacing={2}>
             <Link href="#/">
-              <img src="/images/icon.svg" width="32" />
+              <img src="/images/ekino.png" width="32" />
             </Link>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Threshold Signatures
+              MPC Threshold Signatures
             </Typography>
           </Stack>
 
           <Box sx={{ flexGrow: 1 }} />
+          
           <Stack direction="row" spacing={1} alignItems="center">
             <Link href="https://github.com/LavaMoat/tss-snap">
               <IconButton aria-label="source code">

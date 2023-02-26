@@ -157,7 +157,6 @@ async function offlineStage(
     name: 'SIGN_OFFLINE_STAGE',
     finalize: async (incoming: Message[]): Promise<void> => {
       await standardTransition(incoming);
-      return null;
     },
   };
 

@@ -1,7 +1,7 @@
 {
   "version": "0.1.0",
   "description": "Snap using threshold signatures to sign messages and transactions.",
-  "proposedName": "Threshold Signatures",
+  "proposedName": "MPC Wallet POC",
   "repository": {
     "type": "git",
     "url": "https://github.com/LavaMoat/tss-snap"

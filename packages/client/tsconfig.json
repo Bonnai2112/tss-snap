@@ -12,7 +12,8 @@
     "skipLibCheck": true,
     "downlevelIteration": true,
     "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "strictNullChecks": true,
   },
   "exclude": ["node_modules"]
 }

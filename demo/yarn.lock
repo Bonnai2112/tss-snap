@@ -481,15 +481,20 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
-"@metamask/mpc-client@file:../packages/client":
-  version "1.0.0"
+"@lavamoat/mpc-client@file:../packages/client":
+  version "1.0.4"
   dependencies:
-    "@metamask/mpc-ecdsa-wasm" "file:../../../../Library/Caches/Yarn/v6/npm-@metamask-mpc-client-1.0.0-4dd9f610-149a-4553-b107-210f9738f0a6-1648876132717/node_modules/@metamask/wasm/pkg"
+    "@lavamoat/mpc-ecdsa-wasm" "^0.2.1"
     comlink "^4.3.1"
     events "^3.3.0"
 
-"@metamask/mpc-ecdsa-wasm@file:../packages/wasm/pkg":
-  version "0.2.0"
+"@lavamoat/mpc-ecdsa-wasm@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@lavamoat/mpc-ecdsa-wasm/-/mpc-ecdsa-wasm-0.2.1.tgz#9b62b672468674dc2443979d70c42343bbafbdef"
+  integrity sha512-bYbYsS0WX/c68CKOysTivnni/C96ZiZHY/DDVt8RuosJIc75VVWU+tQb98iOBjDqgTRWfSC1RzOH3wTaA4HQKQ==
+
+"@lavamoat/mpc-ecdsa-wasm@file:../packages/wasm/pkg":
+  version "0.2.1"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -3505,6 +3510,18 @@ playwright-core@1.20.2:
     yauzl "2.10.0"
     yazl "2.5.1"
 
+playwright-core@1.30.0:
+  version "1.30.0"
+  resolved "https://registry.yarnpkg.com/playwright-core/-/playwright-core-1.30.0.tgz#de987cea2e86669e3b85732d230c277771873285"
+  integrity sha512-7AnRmTCf+GVYhHbLJsGUtskWTE33SwMZkybJ0v6rqR1boxq2x36U7p1vDRV7HO2IwTZgmycracLxPEJI49wu4g==
+
+playwright@^1.30.0:
+  version "1.30.0"
+  resolved "https://registry.yarnpkg.com/playwright/-/playwright-1.30.0.tgz#b1d7be2d45d97fbb59f829f36f521f12010fe072"
+  integrity sha512-ENbW5o75HYB3YhnMTKJLTErIBExrSlX2ZZ1C/FzmHjUYIfxj/UnI+DWpQr992m+OQVSg0rCExAOlRwB+x+yyIg==
+  dependencies:
+    playwright-core "1.30.0"
+
 pngjs@6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/pngjs/-/pngjs-6.0.0.tgz#ca9e5d2aa48db0228a52c419c3308e87720da821"
@@ -4332,9 +4349,9 @@ toidentifier@1.0.1:
   integrity sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA==
 
 ts-loader@^9.2.6:
-  version "9.2.8"
-  resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-9.2.8.tgz#e89aa32fa829c5cad0a1d023d6b3adecd51d5a48"
-  integrity sha512-gxSak7IHUuRtwKf3FIPSW1VpZcqF9+MBrHOvBp9cjHh+525SjtCIJKVGjRKIAfxBwDGDGCFF00rTfzB1quxdSw==
+  version "9.4.2"
+  resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-9.4.2.tgz#80a45eee92dd5170b900b3d00abcfa14949aeb78"
+  integrity sha512-OmlC4WVmFv5I0PpaxYb+qGeGOdm5giHU7HwDDUjw59emP2UYMHy9fFSDcYgSNoH8sXcj4hGCSEhlDZ9ULeDraA==
   dependencies:
     chalk "^4.1.0"
     enhanced-resolve "^5.0.0"

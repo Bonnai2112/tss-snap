@@ -13,8 +13,6 @@ import { webWorker } from "./web-worker";
 import WebSocketProvider, { WebSocketContext } from "./websocket-provider";
 import WorkerProvider from "./worker-provider";
 
-const NotFound = () => <h3>Page not found</h3>;
-
 interface WorkerMessage {
   data: { ready: boolean };
 }
@@ -62,7 +60,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/keygen/:uuid" element={<Keygen />} />
             <Route path="/sign/:address" element={<Sign />} />
-            <Route path="*" element={<NotFound />} />
+            
           </Routes>
         </WorkerProvider>
       </div>
