@@ -53,14 +53,6 @@ function MainAppBar() {
 
           <Box sx={{ flexGrow: 1 }} />
           
-          <Stack direction="row" spacing={1} alignItems="center">
-            <Link href="https://github.com/LavaMoat/tss-snap">
-              <IconButton aria-label="source code">
-                <GithubIcon />
-              </IconButton>
-            </Link>
-            <Chip icon={<ScienceIcon />} label="BETA" color="secondary" />
-          </Stack>
         </Stack>
       </AppBar>
     </Box>
