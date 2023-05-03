@@ -1,6 +1,6 @@
 import React from "react";
 import * as ReactDOMClient from "react-dom/client";
-import { Provider } from "react-redux";
+import { Provider as ReduxProvider} from "react-redux";
 import { HashRouter } from "react-router-dom";
 
 import store from "./store";
@@ -26,9 +26,9 @@ declare global {
 
 const root = ReactDOMClient.createRoot(document.querySelector("main"));
 root.render(
-  <Provider store={store}>
+  <ReduxProvider store={store}>
     <HashRouter>
       <App />
     </HashRouter>
-  </Provider>
+  </ReduxProvider>
 );

@@ -81,6 +81,7 @@ export default function SetParameters(props: StepProps) {
         );
 
         next();
+        
       } catch (e) {
         console.error(e);
         dispatch(
