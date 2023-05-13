@@ -13,19 +13,20 @@ const ChainProvider = (props: ChainProviderProps) => {
   const [chain, setChain] = useState<string>(null);
 
   useEffect(() => {
-    ethereum.on("chainChanged", handleChainChanged);
+    //ethereum.on("chainChanged", handleChainChanged);
 
     const loadChainInfo = async () => {
-      const chainId = await ethereum.request({method: "eth_chainId"});
+      //const chainId = await ethereum.request({method: "eth_chainId"});
+      const chainId = '5';
       setChain(chainId as string);
     }
 
     loadChainInfo();
   }, []);
 
-  function handleChainChanged(chainId: string) {
+  /* function handleChainChanged(chainId: string) {
     setChain(chainId);
-  }
+  } */
 
   return (
     <ChainContext.Provider value={chain}>

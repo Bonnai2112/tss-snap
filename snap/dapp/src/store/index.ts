@@ -20,7 +20,7 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        // Ignore these action types
+        // Ignore these action types for data serialization. Webasm doesn't allow. 
         ignoredActions: [
           "session/setTransport",
           "session/setSignCandidate",

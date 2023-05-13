@@ -22,7 +22,7 @@
     "types": "tsc --noEmit --project tsconfig.json",
     "fmt": "prettier --write . --no-color",
     "lint": "eslint src",
-    "start": "yarn build:snap && parcel src/index.html --port 7070"
+    "start": "yarn build:snap && parcel src/index.html --port 8080"
   },
   "devDependencies": {
     "@metamask/snaps-cli": "0.27.1",
@@ -32,6 +32,8 @@
     "@types/react-dom": "^18.0.9",
     "@typescript-eslint/eslint-plugin": "^5.46.1",
     "@typescript-eslint/parser": "^5.46.1",
+    "assert": "^2.0.0",
+    "buffer": "^5.5.0",
     "copy-webpack-plugin": "^11.0.0",
     "dotenv": "^16.0.3",
     "eslint": "^8.30.0",
@@ -56,12 +58,20 @@
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.0",
     "@reduxjs/toolkit": "^1.9.1",
+    "@web3-react/core": "8.1.2-beta.0",
+    "@web3-react/metamask": "8.1.2-beta.0",
+    "@web3-react/types": "8.1.2-beta.0",
+    "axios": "^1.4.0",
     "comlink": "^4.3.1",
     "date-fns": "^2.29.3",
     "ethers": "5.7.2",
+    "flatted": "^3.2.7",
+    "http-proxy-middleware": "^2.0.6",
+    "js-cookie": "^3.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
-    "react-router-dom": "^6.5.0"
+    "react-router-dom": "^6.5.0",
+    "web3-react-magic": "^0.0.7"
   }
 }

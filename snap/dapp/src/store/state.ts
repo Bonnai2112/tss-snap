@@ -12,7 +12,8 @@ function getDefaultAppState(): AppState {
 }
 
 async function getState() {
-  return await ethereum.request({
+  return null;
+  /* return await ethereum.request({
     method: "wallet_invokeSnap",
     params: [
       snapId,
@@ -20,7 +21,7 @@ async function getState() {
         method: "getState",
       },
     ],
-  });
+  }); */
 }
 
 async function setState(value: AppState) {
@@ -38,6 +39,7 @@ async function setState(value: AppState) {
 
 export async function loadStateData(): Promise<AppState> {
   const state: AppState = (await getState()) as AppState;
+  console.log(state)
   if (state !== null) {
     return state;
   }

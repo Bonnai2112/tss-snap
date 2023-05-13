@@ -1,43 +1,61 @@
-import React, { useEffect, useState, useMemo } from "react";
 import init from "@lavamoat/mpc-snap-wasm";
+import { Web3ReactHooks, Web3ReactProvider } from "@web3-react/core";
+import React, { useEffect, useMemo, useState } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import {
+  magicConnect,
+  hooks as magicConnectHooks,
+} from "./connectors/magicConnect";
+import { metaMask, hooks as metaMaskHooks } from "./connectors/metaMask";
 
-import { Routes, Route } from "react-router-dom";
-import detectEthereumProvider from "@metamask/detect-provider";
+// Define an array of web3react connectors and their hooks
+// This is simply  an example of how to setup multiple connectors
+// The MagicConnect connector already supports connecting with MetaMask and WalletConnect using the Magic Connect Modal
+const connectors: [MetaMask | MagicConnect, Web3ReactHooks][] = [
+  [metaMask, metaMaskHooks],
+  [magicConnect, magicConnectHooks],
+];
 
 import {
   AppBar,
-  IconButton,
-  Chip,
+  Box,
+  Button,
+  CssBaseline,
   Link,
   Stack,
-  Box,
-  Typography,
-  CssBaseline,
+  Typography
 } from "@mui/material";
 
-import GithubIcon from '@mui/icons-material/GitHub';
 
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import ScienceIcon from "@mui/icons-material/Science";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
-import WebSocketProvider from "./websocket-provider";
 import ChainProvider from "./chain-provider";
+import WebSocketProvider from "./websocket-provider";
 import WorkerProvider, { webWorker } from "./worker";
 
-import Home from "./home";
+import { MetaMask } from "@web3-react/metamask";
+import { MagicConnect } from "web3-react-magic";
 import About from "./about";
 import Dialogs from "./dialogs";
-import Snackbars from "./snackbars";
-import { Keys, Create, Join, ShowKey, Import } from "./keys";
-import { Message, Transaction, JoinSignSession } from "./keys/sign";
+import Home from "./home";
+import { Create, Import, Join, Keys, ShowKey } from "./keys";
+import { JoinSignSession, Message, Transaction } from "./keys/sign";
 import NotFound from "./not-found";
+import Snackbars from "./snackbars";
 
 type WorkerMessage = {
   data: { ready: boolean };
 };
 
 function MainAppBar() {
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("user");
+    navigate('/');
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ pl: 4, pr: 4, pt: 1, pb: 1 }}>
@@ -52,7 +70,13 @@ function MainAppBar() {
           </Stack>
 
           <Box sx={{ flexGrow: 1 }} />
-          
+
+          <Stack direction="row" spacing={1} alignItems="center">
+            <Button variant="contained" color="success" onClick={() => logout()}>
+              Deconnect
+            </Button>
+          </Stack>
+
         </Stack>
       </AppBar>
     </Box>
@@ -87,7 +111,7 @@ function Content() {
 
 export default function App() {
   const [ready, setReady] = useState(false);
-  const [provider, setProvider] = useState(null);
+  //const [provider, setProvider] = useState(null);
 
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const theme = useMemo(
@@ -102,8 +126,8 @@ export default function App() {
 
   useEffect(() => {
     const initialize = async () => {
-      const provider = await detectEthereumProvider();
-      setProvider(provider);
+      /* const provider = await detectEthereumProvider();
+      setProvider(provider); */
 
       // Setup the wasm helpers that run on the main UI thread
       await init();
@@ -127,7 +151,7 @@ export default function App() {
     return null;
   }
 
-  if (!provider) {
+  /* if (!provider) {
     return (
       <p>
         Failed to detect an ethereum provider, please install{" "}
@@ -143,7 +167,7 @@ export default function App() {
         installed?
       </p>
     );
-  }
+  } */
 
   return (
     <ThemeProvider theme={theme}>
@@ -153,10 +177,12 @@ export default function App() {
           <WebSocketProvider>
             <WorkerProvider>
               <ChainProvider>
-                <MainAppBar />
-                <Content />
-                <Dialogs />
-                <Snackbars />
+                <Web3ReactProvider connectors={connectors}>
+                  <MainAppBar />
+                  <Content />
+                  <Dialogs />
+                  <Snackbars />
+                </Web3ReactProvider>
               </ChainProvider>
             </WorkerProvider>
           </WebSocketProvider>
