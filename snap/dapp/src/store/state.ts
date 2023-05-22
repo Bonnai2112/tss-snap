@@ -2,6 +2,7 @@
 //
 import { AppState } from "../types";
 import snapId from "../snap-id";
+import { getStateFromMagic, setStateFromMagic } from "../services/auth.service"
 
 function getDefaultAppState(): AppState {
   return {
@@ -12,29 +13,13 @@ function getDefaultAppState(): AppState {
 }
 
 async function getState() {
-  return null;
-  /* return await ethereum.request({
-    method: "wallet_invokeSnap",
-    params: [
-      snapId,
-      {
-        method: "getState",
-      },
-    ],
-  }); */
+  const res = await getStateFromMagic('magiclink.ekino@gmail.com');
+  return res?.data
 }
 
 async function setState(value: AppState) {
-  return await ethereum.request({
-    method: "wallet_invokeSnap",
-    params: [
-      snapId,
-      {
-        method: "updateState",
-        params: value,
-      },
-    ],
-  });
+  const res = await setStateFromMagic('magiclink.ekino@gmail.com', value);
+  return res?.data
 }
 
 export async function loadStateData(): Promise<AppState> {

@@ -7,6 +7,7 @@ import {
   hooks as magicConnectHooks,
 } from "./connectors/magicConnect";
 import { metaMask, hooks as metaMaskHooks } from "./connectors/metaMask";
+import { CookiesProvider } from 'react-cookie';
 
 // Define an array of web3react connectors and their hooks
 // This is simply  an example of how to setup multiple connectors
@@ -43,6 +44,7 @@ import { Create, Import, Join, Keys, ShowKey } from "./keys";
 import { JoinSignSession, Message, Transaction } from "./keys/sign";
 import NotFound from "./not-found";
 import Snackbars from "./snackbars";
+import { deactivateUser, isActiveUser } from "./services/auth.service";
 
 type WorkerMessage = {
   data: { ready: boolean };
@@ -50,11 +52,19 @@ type WorkerMessage = {
 
 function MainAppBar() {
   const navigate = useNavigate();
+  const [isActive, setIsActive] = useState(Boolean)
 
   const logout = () => {
-    localStorage.removeItem("user");
+    deactivateUser("magiclink.ekino@gmail.com")
     navigate('/');
   };
+
+  useEffect(() => {
+    (async () => {
+      const res = await isActiveUser("magiclink.ekino@gmail.com");
+      setIsActive(res?.data);
+    })()
+  }, [isActive])
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -71,11 +81,16 @@ function MainAppBar() {
 
           <Box sx={{ flexGrow: 1 }} />
 
-          <Stack direction="row" spacing={1} alignItems="center">
-            <Button variant="contained" color="success" onClick={() => logout()}>
-              Deconnect
-            </Button>
-          </Stack>
+          {
+            isActive ?
+              <Stack direction="row" spacing={1} alignItems="center">
+                <Button variant="contained" color="success" onClick={() => logout()}>
+                  Deconnect
+                </Button>
+              </Stack>
+              : <></>
+
+          }
 
         </Stack>
       </AppBar>
@@ -178,10 +193,12 @@ export default function App() {
             <WorkerProvider>
               <ChainProvider>
                 <Web3ReactProvider connectors={connectors}>
-                  <MainAppBar />
-                  <Content />
-                  <Dialogs />
-                  <Snackbars />
+                  <CookiesProvider>
+                    <MainAppBar />
+                    <Content />
+                    <Dialogs />
+                    <Snackbars />
+                  </CookiesProvider>
                 </Web3ReactProvider>
               </ChainProvider>
             </WorkerProvider>

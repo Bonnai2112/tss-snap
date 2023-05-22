@@ -6,7 +6,9 @@ import { Box, Button, Modal, Stack, Typography } from "@mui/material"
 
 import { setSnackbar } from "./store/snackbars"
 
-import { getCurrentUser, sendEmail } from "./services/auth.service"
+import { isActiveUser, sendEmail } from "./services/auth.service"
+
+import { useLocation } from 'react-router-dom'
 
 type RedirectHandler = () => void;
 
@@ -31,14 +33,31 @@ export default function SnapConnect(props: SnapConnectProps) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false)
-  const [user, setuser ] = useState();
+  const [isActive, setIsAcitive] = useState(Boolean);
+  const location = useLocation();
+
+  const completeUrl = location.pathname + location.search;
+
+  const redirectUrl = typeof completeUrl === 'string' ? redirect : completeUrl
+
 
   async function handleConnect() {
     console.log("Connect to custom magic link");
 
     try {
-      await sendEmail("magiclink.ekino@gmail.com");
-      setOpenModal(true);
+      console.log("SnapConnect currentUser => ")
+
+      if (isActive && typeof redirect === "string") {
+        console.log("1er cas ")
+        navigate(redirect);
+      } else if (isActive && typeof redirect === "function") {
+        console.log("2e cas ")
+        redirect()
+      } else {
+        console.log("3e cas ")
+        await sendEmail("magiclink.ekino@gmail.com", redirectUrl as string);
+        setOpenModal(true);
+      }
 
     } catch (e) {
       dispatch(
@@ -50,14 +69,15 @@ export default function SnapConnect(props: SnapConnectProps) {
     }
   }
 
-  useEffect( () => {
-    const currentUser = getCurrentUser();
-    setuser(currentUser);
-    if (user && typeof redirect === "string") {
-      navigate(redirect);
-    }
-
-  }, [user]);
+  useEffect(() => {
+    (async () => {
+      const res = await isActiveUser("magiclink.ekino@gmail.com");
+      setIsAcitive(res?.data);
+      /* if (isActive && typeof redirect === "string") {
+        navigate(redirect);
+      } */
+    })()
+  }, [isActive]);
 
   return (
     <>
@@ -67,20 +87,20 @@ export default function SnapConnect(props: SnapConnectProps) {
         </Button>
       </Stack>
       <Modal
-          open={openModal}
-          onClose={() => setOpenModal(false)}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
-          </Box>
-        </Modal>
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Welcome
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+           Check your e-mail please !
+          </Typography>
+        </Box>
+      </Modal>
     </>
   );
 }

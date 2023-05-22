@@ -15,16 +15,6 @@ export default function ConnexionCard() {
                 image="../../images/wallet_icon.png"
                 title="green iguana"
             />
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                    Connexion
-                </Typography>
-                <Typography variant="body1" color="text.secondary">
-                    To begin you should have installed{" "}
-                    <Link href="https://metamask.io/flask/">MetaMask Flask</Link> and then
-                    you can connect.
-                </Typography>
-            </CardContent>
             <CardActions sx={{ padding: 3 }}>
                 <SnapConnect redirect="/keys" />
             </CardActions>

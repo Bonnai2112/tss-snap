@@ -25,6 +25,7 @@ import KeysLoader from "./loader";
 import { getUserInfos } from "../services/auth.service";
 
 import { Wallet, providers } from 'ethers';
+import { useCookies } from 'react-cookie';
 
 
 
@@ -35,6 +36,7 @@ function Keys() {
   const { keyShares, loaded } = useSelector(keysSelector);
   const [wallet, setWallet] = useState({});
   const [provider, setProvider] = useState({});
+  //const [cookies, setCookie] = useCookies(['jwt']);
 
 
   useEffect(() => {
@@ -46,6 +48,7 @@ function Keys() {
       const walletMnemonic = Wallet.fromMnemonic(datas?.nNemonic)
       setProvider(new providers.JsonRpcProvider("https://polygon.llamarpc.com"));
       setWallet(walletMnemonic.connect(provider))
+      console.log("Cookies => ", JSON.stringify(datas))
     }
     retriveUserInfos()
   }, []);
